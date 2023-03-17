@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basketball Camps</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .camp {
+            margin-bottom: 20px;
+        }
+        .attendees {
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Basketball Camps</h1>
+    <div id="camps">
+        <!-- Camps will be added here -->
+    </div>
+
+    <script>
+        // Add your events, dates, and kids names here
+        const campsData = [
+            {
+                name: 'Camp 1',
+                date: '2023-04-01',
+                attendees: [
+                    { name: 'Kid 1', attending: false },
+                    { name: 'Kid 2', attending: false },
+                ],
+            },
+            // Add more camps here
+        ];
+
+        const campsContainer = document.getElementById('camps');
+
+        function toggleAttendance(campIndex, kidIndex) {
+            campsData[campIndex].attendees[kidIndex].attending = !campsData[campIndex].attendees[kidIndex].attending;
+            renderCamps();
+        }
+
+        function renderCamps() {
+            campsContainer.innerHTML = '';
+            campsData.forEach((camp, campIndex) => {
+                const campElement = document.createElement('div');
+                campElement.className = 'camp';
+                campElement.innerHTML = `
+                    <h2>${camp.name} - ${camp.date}</h2>
+                    <div class="attendees">
+                        ${camp.attendees.map((kid, kidIndex) => `
+                            <div>
+                                <input type="checkbox" id="checkbox-${campIndex}-${kidIndex}" ${kid.attending ? 'checked' : ''} onchange="toggleAttendance(${campIndex}, ${kidIndex})">
+                                <label for="checkbox-${campIndex}-${kidIndex}">${kid.name}</label>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                campsContainer.appendChild(campElement);
+            });
+        }
+
+        renderCamps();
+    </script>
+</body>
+</html>
